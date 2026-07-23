@@ -12,6 +12,7 @@
 #   --channels x,tiktok,instagram,...    (default from machine.env)
 #   --at "2026-07-23T16:00:00Z"          schedule time (ISO, UTC)
 #   --template <name>                    skip the brain, use templates/<name>
+#   --style <name>                       style/<name>.md instead of HOUSE-STYLE (motivational, coaching, business-promo, positive-post)
 #   --stitch run1,run2,...               chain past runs into one film (no brain, no render cost)
 #   --cta <url>                          link shown on-screen + appended to caption (default DEFAULT_CTA)
 #   --via blotato|postiz|<any adapter>   pick the poster from the bullpen for this run
@@ -24,7 +25,7 @@ M="$(cd "$(dirname "$0")" && pwd)"
 [ -f "$M/machine.env" ] && . "$M/machine.env"
 
 FORMAT=landscape; TONE=polished; CHANNELS="${DEFAULT_CHANNELS:-x}"
-AT=""; DRY=0; LIVE=0; TEMPLATE=""; QUALITY=high; PROMPT=""; STITCH=""; CTA="${DEFAULT_CTA:-}"
+AT=""; DRY=0; LIVE=0; TEMPLATE=""; QUALITY=high; PROMPT=""; STITCH=""; CTA="${DEFAULT_CTA:-}"; STYLE="HOUSE-STYLE"
 while [ $# -gt 0 ]; do case "$1" in
   --format)   FORMAT="$2"; shift 2;;
   --tone)     TONE="$2"; shift 2;;
@@ -32,6 +33,7 @@ while [ $# -gt 0 ]; do case "$1" in
   --at)       AT="$2"; shift 2;;
   --template) TEMPLATE="$2"; shift 2;;
   --stitch)   STITCH="$2"; shift 2;;
+  --style)    STYLE="$2"; shift 2;;
   --cta)      CTA="$2"; shift 2;;
   --via)      QUEUE_ADAPTER="$2"; shift 2;;
   --dry)      DRY=1; shift;;
@@ -98,6 +100,7 @@ if [ -n "$TEMPLATE" ]; then
 else
   [ -n "$PROMPT" ] || { echo "LOUD FAIL: no prompt and no --template"; exit 1; }
   command -v claude >/dev/null || { echo "LOUD FAIL: claude CLI not found (the brain)"; exit 1; }
+  [ -f "$M/style/$STYLE.md" ] || { echo "LOUD FAIL: no style file style/$STYLE.md (have: $(ls "$M/style" | sed 's/\.md//' | tr '\n' ' '))"; exit 1; }
   # Pre-stage binary assets — the brain only writes text files (index.html, caption)
   mkdir -p "$RUN/composition"
   cp -r "$M/templates/tigerclaw-launch/composition/assets" "$RUN/composition/assets"
@@ -105,7 +108,7 @@ else
   claude -p "$(cat "$M/brain/compose-prompt.md")
 
 === HOUSE STYLE (locked) ===
-$(cat "$M/style/HOUSE-STYLE.md")
+$(cat "$M/style/$STYLE.md")
 
 === THIS RUN ===
 FORMAT: $FORMAT (${W}x${H})
