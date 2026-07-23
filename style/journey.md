@@ -38,5 +38,5 @@ Logbook voice. Short declarative narration ("Build two. An AI split the code in 
 
 ## Audio
 
-Bundled track: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (120 BPM).
-Play it LOW (0.35) and let it swell only under the final card (to 0.5). Fade in 1.5s, fade out 2s. No SFX except a single soft keyboard/typewriter tick under quote assembly if used sparingly.
+**Series theme (locked by Brent 2026-07-23): `assets/music/journey-theme.mp3`** — gritty blues-rock stomp, 51s. This IS the Journey's sonic brand; never substitute the happy-beats stock track in this style.
+Play it at 0.35 baseline and let it swell under the final card (to 0.5). Fade in 1.0s, fade out 2s. Lock the date chip and the ember accent phrase to the stomp's downbeats. SFX: a single soft keyboard/typewriter tick under quote assembly, sparingly.
