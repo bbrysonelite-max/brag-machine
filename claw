@@ -1,0 +1,102 @@
+#!/bin/bash
+# ============================================================
+# CLAW — the Video Machine
+# type a prompt -> branded video -> posting queue
+# LOUD errors everywhere. No silent skips. (Brent's law 050)
+# ============================================================
+# Usage:
+#   ./claw "hook: your warm list isn't dead" [options]
+# Options:
+#   --format landscape|vertical|square   (default landscape)
+#   --tone <preset or freeform>          (default polished)
+#   --channels x,tiktok,instagram,...    (default from machine.env)
+#   --at "2026-07-23T16:00:00Z"          schedule time (ISO, UTC)
+#   --template <name>                    skip the brain, use templates/<name>
+#   --via blotato|postiz|<any adapter>   pick the poster from the bullpen for this run
+#   --dry                                render only, do not queue
+#   --live                               skip draft mode (Postiz only)
+#   --draft-quality                      fast render for iteration
+set -euo pipefail
+
+M="$(cd "$(dirname "$0")" && pwd)"
+[ -f "$M/machine.env" ] && . "$M/machine.env"
+
+FORMAT=landscape; TONE=polished; CHANNELS="${DEFAULT_CHANNELS:-x}"
+AT=""; DRY=0; LIVE=0; TEMPLATE=""; QUALITY=high; PROMPT=""
+while [ $# -gt 0 ]; do case "$1" in
+  --format)   FORMAT="$2"; shift 2;;
+  --tone)     TONE="$2"; shift 2;;
+  --channels) CHANNELS="$2"; shift 2;;
+  --at)       AT="$2"; shift 2;;
+  --template) TEMPLATE="$2"; shift 2;;
+  --via)      QUEUE_ADAPTER="$2"; shift 2;;
+  --dry)      DRY=1; shift;;
+  --live)     LIVE=1; shift;;
+  --draft-quality) QUALITY=draft; shift;;
+  *)          PROMPT="$PROMPT $1"; shift;;
+esac; done
+PROMPT="${PROMPT# }"
+
+case "$FORMAT" in
+  landscape) W=1920; H=1080;;
+  vertical)  W=1080; H=1920;;
+  square)    W=1080; H=1080;;
+  *) echo "LOUD FAIL: unknown format '$FORMAT'"; exit 1;;
+esac
+
+RUN="$M/runs/$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$RUN"
+echo "== RUN: $RUN"
+
+# ---- 1. COMPOSITION (template or brain) ----
+if [ -n "$TEMPLATE" ]; then
+  [ -d "$M/templates/$TEMPLATE/composition" ] || { echo "LOUD FAIL: no template '$TEMPLATE'"; exit 1; }
+  cp -r "$M/templates/$TEMPLATE/composition" "$RUN/composition"
+  cp "$M/templates/$TEMPLATE/caption.txt" "$RUN/caption.txt" 2>/dev/null || echo "$PROMPT" > "$RUN/caption.txt"
+else
+  [ -n "$PROMPT" ] || { echo "LOUD FAIL: no prompt and no --template"; exit 1; }
+  command -v claude >/dev/null || { echo "LOUD FAIL: claude CLI not found (the brain)"; exit 1; }
+  # Pre-stage binary assets — the brain only writes text files (index.html, caption)
+  mkdir -p "$RUN/composition"
+  cp -r "$M/templates/tigerclaw-launch/composition/assets" "$RUN/composition/assets"
+  echo "== BRAIN: authoring composition..."
+  claude -p "$(cat "$M/brain/compose-prompt.md")
+
+=== HOUSE STYLE (locked) ===
+$(cat "$M/style/HOUSE-STYLE.md")
+
+=== THIS RUN ===
+FORMAT: $FORMAT (${W}x${H})
+TONE: $TONE
+OUTPUT: write $RUN/composition/index.html — runtime assets (gsap, fonts, music, sfx) are ALREADY at $RUN/composition/assets/, reference them relatively, do not copy or create assets
+ALSO WRITE: $RUN/caption.txt — the social caption for this video.
+
+VIDEO REQUEST: $PROMPT" --permission-mode acceptEdits
+fi
+
+[ -f "$RUN/composition/index.html" ] || { echo "LOUD FAIL: no composition produced"; exit 1; }
+
+# ---- 2. GATE ----
+echo "== GATE: hyperframes check"
+( cd "$RUN/composition" && npx hyperframes check ) || { echo "LOUD FAIL: check failed — video blocked"; exit 1; }
+
+# ---- 3. RENDER ----
+echo "== RENDER ($QUALITY)"
+( cd "$RUN/composition" && npx hyperframes render --quality "$QUALITY" --output "$RUN/out.mp4" )
+test -s "$RUN/out.mp4" || { echo "LOUD FAIL: render produced no file"; exit 1; }
+echo "== VIDEO: $RUN/out.mp4"
+
+# ---- 4. QUEUE ----
+if [ "$DRY" -eq 1 ]; then
+  echo "== DRY RUN complete. Video at: $RUN/out.mp4"
+else
+  MODE=draft; [ "$LIVE" -eq 1 ] && MODE=live
+  ADAPTER="$M/adapters/${QUEUE_ADAPTER:-blotato}.sh"
+  [ -x "$ADAPTER" ] || { echo "LOUD FAIL: adapter $ADAPTER missing/not executable"; exit 1; }
+  "$ADAPTER" "$RUN/out.mp4" "$RUN/caption.txt" "$CHANNELS" "$AT" "$MODE"
+fi
+
+# ---- 5. LEDGER ----
+SAFE_PROMPT=$(echo "${PROMPT:-template:$TEMPLATE}" | tr '"' "'" | tr '\n' ' ')
+echo "{\"ts\":\"$(date -u +%FT%TZ)\",\"run\":\"$(basename "$RUN")\",\"prompt\":\"$SAFE_PROMPT\",\"format\":\"$FORMAT\",\"channels\":\"$CHANNELS\",\"mode\":\"$([ "$DRY" -eq 1 ] && echo dry || echo "${MODE:-dry}")\",\"video\":\"$RUN/out.mp4\"}" >> "$M/ledger.jsonl"
+echo "== DONE. Ledger updated."

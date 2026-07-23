@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>Tiger Claw — Brag</title>
+<script src="assets/gsap.min.js"></script>
+<style>
+  @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 900; src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2"); }
+
+  body { margin: 0; background: #06090d; font-family: "Inter", system-ui, sans-serif; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: #f5f7fa; }
+  .clip { position: absolute; inset: 0; }
+  .bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1100px 700px at 72% 18%, rgba(255,107,26,0.07) 0%, rgba(255,107,26,0) 60%),
+      radial-gradient(1400px 900px at 30% 80%, #101a26 0%, #0a0e14 60%);
+  }
+  .scene { position: relative; width: 100%; height: 100%; display: flex; box-sizing: border-box; }
+  .center-col { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+  /* claw mark */
+  .mark { display: flex; gap: 20px; align-items: flex-end; }
+  .bar { display: block; width: 30px; border-radius: 15px; transform: skewX(-16deg);
+         background: linear-gradient(180deg, #ffb36b 0%, #ff6b1a 55%, #e2510a 100%);
+         box-shadow: 0 12px 60px rgba(255,107,26,0.35); }
+  .mark .b1 { height: 104px; } .mark .b2 { height: 132px; } .mark .b3 { height: 96px; }
+  .mark-lg .bar { width: 38px; border-radius: 19px; }
+  .mark-lg .b1 { height: 130px; } .mark-lg .b2 { height: 165px; } .mark-lg .b3 { height: 120px; }
+
+  .grad-text { background: linear-gradient(92deg, #ffb36b 0%, #ff6b1a 70%);
+               -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* scene 1 */
+  #s1 .scene { gap: 34px; }
+  #l1 { font-size: 62px; font-weight: 600; color: #c7d2de; margin: 0; }
+  #l2 { font-size: 112px; font-weight: 900; letter-spacing: -3px; margin: 0; }
+  #slash1 { width: 430px; height: 14px; border-radius: 7px; transform: skewX(-20deg);
+            background: linear-gradient(90deg, #ff6b1a, #ffb36b); margin-top: 8px; }
+
+  /* scene 2 */
+  #s2 .scene { gap: 30px; }
+  #word2 { font-size: 148px; font-weight: 900; letter-spacing: -4px; margin: 0; }
+  #tag2 { font-size: 44px; font-weight: 600; color: #f5a85a; margin: 0; }
+  #credit2 { font-size: 26px; font-weight: 400; color: #6b7a8c; margin: 0; }
+
+  /* shared label block */
+  .label-block { display: flex; flex-direction: column; gap: 22px; max-width: 640px; }
+  .kicker { display: block; width: 70px; height: 10px; border-radius: 5px;
+            background: linear-gradient(90deg, #ff6b1a, #ffb36b); }
+  .label-big { font-size: 74px; font-weight: 900; letter-spacing: -1px; line-height: 1.04; margin: 0; }
+  .label-sub { font-size: 30px; font-weight: 400; color: #8fa0b3; line-height: 1.4; margin: 0; }
+
+  /* scene 3 */
+  #s3 .scene { align-items: center; justify-content: center; gap: 90px; padding: 0 120px; }
+  .chat-card { width: 860px; background: #121a24; border: 1px solid #22303e; border-radius: 26px;
+               padding: 42px 46px; box-sizing: border-box; box-shadow: 0 30px 90px rgba(0,0,0,0.45); }
+  .chat-head { font-size: 24px; font-weight: 600; color: #8fa0b3; margin-bottom: 26px; }
+  .bubble { background: #1e2934; border-radius: 20px 20px 20px 6px; padding: 24px 30px;
+            font-size: 34px; line-height: 1.35; max-width: 560px; }
+  .draft { margin-top: 30px; background: #191108; border: 2px solid rgba(255,107,26,0.45);
+           border-radius: 20px; padding: 26px 30px; }
+  .draft-head { display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 800;
+                letter-spacing: 1px; color: #ff8b40; margin-bottom: 16px; }
+  .miniclaw { display: flex; gap: 4px; align-items: flex-end; }
+  .miniclaw .bar { width: 6px; border-radius: 3px; box-shadow: none; }
+  .miniclaw .b1 { height: 16px; } .miniclaw .b2 { height: 21px; } .miniclaw .b3 { height: 15px; }
+  .dtext { font-size: 33px; line-height: 1.4; }
+  .dtext .w { white-space: nowrap; }
+  .dtext i { font-style: normal; opacity: 0; }
+  #caret3 { display: inline-block; width: 4px; height: 34px; background: #ff6b1a;
+            vertical-align: -4px; margin-left: 4px; }
+
+  /* scene 4 */
+  #s4 .scene { align-items: center; justify-content: center; gap: 90px; padding: 0 120px; }
+  .mem-card { width: 700px; background: #121a24; border: 1px solid #22303e; border-radius: 26px;
+              padding: 42px 46px; box-sizing: border-box; box-shadow: 0 30px 90px rgba(0,0,0,0.45); }
+  .mem-head { display: flex; align-items: center; gap: 24px; margin-bottom: 30px; }
+  .avatar { width: 82px; height: 82px; border-radius: 50%; display: grid; place-items: center;
+            background: linear-gradient(135deg, #ff6b1a, #b03d05); font-size: 32px; font-weight: 800; }
+  .mem-name { font-size: 40px; font-weight: 800; }
+  .mem-sub { font-size: 24px; color: #8fa0b3; margin-top: 4px; }
+  .chip4 { display: flex; align-items: center; gap: 18px; background: #16202b; border: 1px solid #2a3948;
+           border-radius: 16px; padding: 20px 26px; font-size: 31px; margin-top: 18px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #ff6b1a; flex: 0 0 auto; }
+
+  /* scene 5 */
+  #s5 .scene { flex-direction: column; align-items: center; justify-content: center; gap: 46px; }
+  #rows5 { display: flex; flex-direction: column; gap: 20px; width: 880px; }
+  .row5 { display: flex; align-items: center; gap: 22px; background: #121a24; border: 1px solid #22303e;
+          border-radius: 18px; padding: 24px 32px; font-size: 33px; }
+  .check { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,107,26,0.15);
+           border: 2px solid #ff6b1a; color: #ff8b40; display: grid; place-items: center;
+           font-size: 26px; font-weight: 800; flex: 0 0 auto; }
+  .row5 .who { color: #8fa0b3; }
+  #label5wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+
+  /* scene 6 */
+  #s6 .scene { gap: 38px; }
+  #line6 { font-size: 64px; font-weight: 800; letter-spacing: -1px; margin: 0; max-width: 1200px; }
+  #url6 { display: inline-block; border: 2px solid #ff6b1a; color: #ff8b40; border-radius: 999px;
+          padding: 20px 52px; font-size: 38px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="19.5">
+
+  <!-- Scene 1 · Hook · 0–3.02 -->
+  <section id="s1" class="clip" data-start="0" data-duration="3.02" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene center-col">
+      <p id="l1">Prospects don&rsquo;t ghost you.</p>
+      <p id="l2" class="grad-text">You ghost them.</p>
+      <div id="slash1"></div>
+    </div>
+  </section>
+
+  <!-- Scene 2 · Reveal · 3.02–6.52 -->
+  <section id="s2" class="clip" data-start="3.02" data-duration="3.5" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene center-col">
+      <div id="mark2" class="mark mark-lg"><span class="bar b1"></span><span class="bar b2"></span><span class="bar b3"></span></div>
+      <h1 id="word2">TIGER CLAW</h1>
+      <p id="tag2">Your AI Follow&#8209;Up Assistant</p>
+      <p id="credit2">by BotCraftWorks</p>
+    </div>
+  </section>
+
+  <!-- Scene 3 · Handles objections · 6.52–11.02 -->
+  <section id="s3" class="clip" data-start="6.52" data-duration="4.5" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene">
+      <div id="chatcard" class="chat-card">
+        <div class="chat-head">Sarah M. &middot; prospect</div>
+        <div id="bub3" class="bubble">I need to think about it&hellip;</div>
+        <div id="draft3" class="draft">
+          <div class="draft-head">
+            <span class="miniclaw"><span class="bar b1"></span><span class="bar b2"></span><span class="bar b3"></span></span>
+            TIGER CLAW &middot; SUGGESTED REPLY
+          </div>
+          <div class="dtext"><span class="w"><i>T</i><i>o</i><i>t</i><i>a</i><i>l</i><i>l</i><i>y</i></span> <span class="w"><i>f</i><i>a</i><i>i</i><i>r</i><i>.</i></span> <span class="w"><i>I</i><i>s</i></span> <span class="w"><i>i</i><i>t</i></span> <span class="w"><i>t</i><i>h</i><i>e</i></span> <span class="w"><i>p</i><i>r</i><i>o</i><i>d</i><i>u</i><i>c</i><i>t</i><i>s</i></span> <span class="w"><i>o</i><i>r</i></span> <span class="w"><i>t</i><i>h</i><i>e</i></span> <span class="w"><i>t</i><i>i</i><i>m</i><i>i</i><i>n</i><i>g</i></span> <span class="w"><i>y</i><i>o</i><i>u</i></span> <span class="w"><i>w</i><i>a</i><i>n</i><i>t</i></span> <span class="w"><i>t</i><i>o</i></span> <span class="w"><i>t</i><i>h</i><i>i</i><i>n</i><i>k</i></span> <span class="w"><i>o</i><i>v</i><i>e</i><i>r</i><i>?</i></span><span id="caret3"></span></div>
+        </div>
+      </div>
+      <div id="label3" class="label-block">
+        <span class="kicker"></span>
+        <h2 class="label-big">Handles objections</h2>
+        <p class="label-sub">Common pushbacks get a calm, human draft &mdash; you stay in control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 4 · Remembers details · 11.02–14.52 -->
+  <section id="s4" class="clip" data-start="11.02" data-duration="3.5" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene">
+      <div id="label4" class="label-block">
+        <span class="kicker"></span>
+        <h2 class="label-big">Remembers every detail</h2>
+        <p class="label-sub">Every prospect, every conversation &mdash; nothing slips.</p>
+      </div>
+      <div id="memcard" class="mem-card">
+        <div class="mem-head">
+          <div class="avatar">SM</div>
+          <div>
+            <div class="mem-name">Sarah M.</div>
+            <div class="mem-sub">Prospect &middot; warm</div>
+          </div>
+        </div>
+        <div class="chip4"><span class="dot"></span>Met at the gym</div>
+        <div class="chip4"><span class="dot"></span>Two kids &middot; busy schedule</div>
+        <div class="chip4"><span class="dot"></span>Wants more energy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 5 · Follow up faster · 14.52–17.02 -->
+  <section id="s5" class="clip" data-start="14.52" data-duration="2.5" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene">
+      <div id="label5wrap">
+        <span class="kicker"></span>
+        <h2 id="label5" class="label-big">Follow up faster</h2>
+      </div>
+      <div id="rows5">
+        <div class="row5"><span class="check">&#10003;</span>Follow-up sent <span class="who">&middot; Sarah M.</span></div>
+        <div class="row5"><span class="check">&#10003;</span>Follow-up sent <span class="who">&middot; Marcus T.</span></div>
+        <div class="row5"><span class="check">&#10003;</span>Follow-up sent <span class="who">&middot; Jen R.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 6 · Outro · 17.02–19.5 -->
+  <section id="s6" class="clip" data-start="17.02" data-duration="2.48" data-track-index="1">
+    <div class="bg"></div>
+    <div class="scene center-col">
+      <div id="mark6" class="mark"><span class="bar b1"></span><span class="bar b2"></span><span class="bar b3"></span></div>
+      <p id="line6">Keep serious conversations moving.</p>
+      <span id="url6">tigerclaw.io</span>
+    </div>
+  </section>
+
+  <!-- Audio: direct children of host root -->
+  <audio id="bgm" src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3" data-start="0" data-duration="19.5" data-track-index="10" data-volume="0.55"></audio>
+  <audio id="sfx-reply" src="assets/sfx/click2.ogg" data-start="9.95" data-track-index="11" data-volume="0.5"></audio>
+  <audio id="sfx-chip1" src="assets/sfx/switch1.ogg" data-start="11.52" data-track-index="12" data-volume="0.45"></audio>
+  <audio id="sfx-chip2" src="assets/sfx/switch6.ogg" data-start="12.52" data-track-index="13" data-volume="0.45"></audio>
+  <audio id="sfx-row1" src="assets/sfx/click2.ogg" data-start="14.62" data-track-index="14" data-volume="0.3"></audio>
+  <audio id="sfx-row2" src="assets/sfx/click2.ogg" data-start="15.12" data-track-index="15" data-volume="0.3"></audio>
+  <audio id="sfx-row3" src="assets/sfx/click2.ogg" data-start="15.62" data-track-index="16" data-volume="0.3"></audio>
+  <audio id="sfx-logo" src="assets/sfx/rollover2.ogg" data-start="17.02" data-track-index="17" data-volume="0.5"></audio>
+</div>
+
+<script>
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+
+  // Music: fade in at open, fade out under outro
+  tl.fromTo("#bgm", { volume: 0 }, { volume: 0.55, duration: 0.8, ease: "none" }, 0);
+  tl.to("#bgm", { volume: 0, duration: 1.0, ease: "none" }, 18.4);
+
+  // Scene 1 — Hook (0–3.02)
+  tl.from("#l1", { y: 44, autoAlpha: 0, duration: 0.55, ease: "power3.out" }, 0.25);
+  tl.from("#l2", { y: 50, autoAlpha: 0, scale: 0.96, duration: 0.5, ease: "power3.out" }, 1.30);
+  tl.from("#slash1", { scaleX: 0, transformOrigin: "left center", duration: 0.45, ease: "power4.out" }, 2.05);
+
+  // Scene 2 — Reveal // beat-locked: 3.02s (first high-intensity beat, 0.86)
+  tl.from("#mark2 .bar", { yPercent: -130, autoAlpha: 0, duration: 0.4, ease: "power4.out", stagger: 0.07 }, 3.02);
+  tl.from("#word2", { y: 40, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 3.22);
+  tl.from("#tag2", { y: 24, autoAlpha: 0, duration: 0.45, ease: "power2.out" }, 4.02); // beat-grid: 4.02s
+  tl.from("#credit2", { autoAlpha: 0, duration: 0.4, ease: "none" }, 4.53); // beat-grid: 4.53s
+
+  // Scene 3 — Handles objections (6.52–11.02)
+  tl.from("#chatcard", { y: 60, autoAlpha: 0, duration: 0.55, ease: "power3.out" }, 6.62);
+  tl.from("#bub3", { scale: 0.9, autoAlpha: 0, transformOrigin: "left bottom", duration: 0.4, ease: "back.out(1.6)" }, 7.02); // beat-grid: 7.02s
+  tl.from("#label3", { x: 40, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 7.52); // beat-grid: 7.52s
+  tl.from("#draft3", { y: 30, autoAlpha: 0, duration: 0.45, ease: "power2.out" }, 8.02); // beat-grid: 8.02s
+  tl.to("#draft3 .dtext i", { opacity: 1, duration: 0.01, stagger: 0.02, ease: "none" }, 8.42); // typing, ends ~9.9, holds ~1.1s
+  tl.to("#caret3", { opacity: 0, duration: 0.4, yoyo: true, repeat: 5, ease: "steps(1)" }, 8.42); // finite blink, ends 10.82
+
+  // Scene 4 — Remembers every detail (11.02–14.52)
+  tl.from("#memcard", { y: 60, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 11.12);
+  tl.from("#label4", { x: -40, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 11.52); // beat-grid: 11.52s
+  tl.from(".chip4", { x: -30, autoAlpha: 0, duration: 0.35, ease: "power2.out", stagger: 1.0 }, 11.52); // beat-grid every other beat: 11.52 / 12.52 / 13.52 (readability floor)
+
+  // Scene 5 — Follow up faster (14.52–17.02)
+  tl.from("#label5wrap", { y: 30, autoAlpha: 0, duration: 0.45, ease: "power3.out" }, 14.62);
+  tl.from(".row5", { y: 26, autoAlpha: 0, duration: 0.35, ease: "power2.out", stagger: 0.5 }, 14.62); // beat-grid: 14.62 / 15.12 / 15.62 (±0.10s of 14.52/15.02/15.52)
+
+  // Scene 6 — Outro // beat-locked: 17.02s (strong cue, 1.00)
+  tl.from("#mark6 .bar", { yPercent: -130, autoAlpha: 0, duration: 0.42, ease: "power4.out", stagger: 0.06 }, 17.02);
+  tl.from("#line6", { y: 34, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 17.42);
+  tl.from("#url6", { scale: 0.9, autoAlpha: 0, duration: 0.4, ease: "back.out(1.7)" }, 18.22);
+
+  window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

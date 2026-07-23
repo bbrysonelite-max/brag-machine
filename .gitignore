@@ -1,0 +1,7 @@
+machine.env
+runs/
+node_modules/
+*.tar.gz
+brag.mp4
+ledger.jsonl
+.DS_Store
