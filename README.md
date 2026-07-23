@@ -76,3 +76,13 @@ cd docker && docker compose -f postiz-compose.yml up -d
 # Set DEFAULT_CTA in machine.env to do this on every run
 ```
 Note: social platforms don't make in-video links clickable — the end-card shows the URL, the caption carries the clickable link.
+
+## Absorbed from ai-social-system (2026-07-23 consolidation)
+
+| Dir | What | Use it for |
+|---|---|---|
+| `voice/` | Brent's voice engine: 6 named cadences + signature phrases (`voice.md`), FTC/compliance guardrails (`never-say.md`), 5 gold-standard example posts (`examples.md`), platform formats, CTA/funnel map, pillars | Writing TEXT posts and captions in Brent's voice — the machine's caption/copy brain |
+| `cadence/` | Weekly-batch procedure, calendar-week volume ramp, account warm-up doctrine, no-repeat ideas ledger (`cadence-state.json` — carries the June history: 27 posts, 11 used slugs) | The posting calendar's machinery: ramp volume, never repeat an idea, verify last week actually published |
+| `docs/blotato-rest.md` | Blotato REST contract + gotchas (scheduledTime at root, DELETE without body, media hosting, long-form repurposing via create_source) | Adapter work and debugging |
+
+ai-social-system is RETIRED as a running system — this machine is the SOCIAL system; longform lives in the YOUTUBE system (Two Brents, ~/Desktop/YOUTUBE).
