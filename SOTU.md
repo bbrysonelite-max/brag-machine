@@ -39,9 +39,16 @@ The Brag Machine (`claw`) turns a prompt into a branded, beat-synced, gate-check
 
 Daily drumbeat Jul 23–Aug 21. Journey Tue/Thu (EN 9AM Phoenix + TH 6PM Phoenix), Laws Mon/Wed/Fri, tile Sat, YouTube Sun. Monday = batch day. Cross-promo triangle: episodes tease Sunday YT; laws cite episode scars; YT recaps the law + links the shorts; one theme per week.
 
+## Consolidation (DONE 2026-07-23)
+
+Two systems only, per Brent: **SOCIAL = this machine** · **YOUTUBE = Two Brents (~/Desktop/YOUTUBE)**. ai-social-system repo RETIRED + archived; absorbed here: `voice/` (6 named cadences, never-say compliance, gold examples — use for ALL captions), `cadence/` (volume ramp, warm-up doctrine, no-repeat usedIdeas ledger in cadence-state.json), `docs/blotato-rest.md`. Its youtube-autoload.sh + HeyGen private-first handoff moved to ~/Desktop/YOUTUBE/scripts/.
+**Skills (installed ~/.claude/skills/):** `brag-machine` (operator master), `brag-one` (single video end-to-end incl. Thai + VO), `brag-two` (stitch), `brag-music` (themes). Token law: subagents for all mining/reading; stitch/template/in-place-fixes over new brain runs.
+Coming from Brent's other instance: 3 lead-magnet books (email harvest) — when live, `--cta` points at the capture page; check affiliate programs (Blotato/HeyGen/ElevenLabs) for promoted tools.
+**Brand note:** Brent LOVES the claw logo as rendered in Agent Law #1 (run 20260723-101531) — keep that treatment.
+
 ## Immediate next actions
 
-1. **Agent Law #1** rendered (check runs/ for latest) — review, then queue for Fri Jul 24 16:00Z (9 AM Phoenix) to x,instagram,tiktok,facebook,youtube
+1. ~~Agent Law #1~~ QUEUED (approved "absolutely perfect"): Fri Jul 24 16:00Z to x,instagram,tiktok,facebook,youtube, with journey theme; music law extended — the stomp now covers journey + coaching + motivational styles
 2. Sat Jul 25: quote tile "million words / nine books" (square, motivational style)
 3. Sun Jul 26: Two Brents YouTube "I Built It Four Times" (existing YT system + clone)
 4. Mon Jul 27: first batch day — render Week 2 from JOURNEY-PRODUCTION-QUEUE.md

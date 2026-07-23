@@ -33,6 +33,6 @@ Brent coaching a rep he actually wants to win: direct, warm underneath, zero flu
 
 ## Audio
 
-Bundled track: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (120 BPM).
+**Series theme (locked by Brent 2026-07-23): `assets/music/journey-theme.mp3`** — the rock-stomp Brent sound, shared with the journey style. Never substitute the happy-beats stock track in this style.
 Beat grid ≈ every 0.50s from 3.02s. Strong cues: 3.02, 16.02–18.52, 20.02.
 Music volume 0.5, fade in 0.8s, fade out ~1s. SFX: clicks as steps land, nothing else.
