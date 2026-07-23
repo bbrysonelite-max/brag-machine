@@ -9,7 +9,7 @@ Documentary snippets from Brent's four builds of Tiger. True story, dated receip
 | Background | `#0B0A08` near-black with a faint warm vignette, like a desk lamp off-frame |
 | Text | `#F2EADD` primary · `#B7A992` secondary |
 | Accent | ember `#FF6B1A → #E2510A` — used ONLY on the date stamp and one key phrase |
-| Date stamps | every episode opens with a monospace date chip (e.g. `APR 6, 2026`) — ui-monospace style, letterspaced, ember underline |
+| Date stamps | every episode opens with a monospace date chip (e.g. `APR 6, 2026`) — letterspaced, ember underline. Monospace font-family MUST be exactly `Menlo, monospace` (renderer maps Menlo to bundled JetBrains Mono; other mono names fail the check gate) |
 | Font | Inter 900 for quotes, 400 for narration lines; quotes are BIG (fill 65%+ frame width) |
 | Receipts | quotes rendered as typed/terminal-style cards when they came from session logs; keep file-name captions small and real (e.g. `wispr_flow/2026-04-06.md`) |
 | No logo until the outro | the story is the brand |
@@ -26,6 +26,7 @@ Documentary snippets from Brent's four builds of Tiger. True story, dated receip
 8. **Readable above all:** long holds on every quote; this audience reads.
 9. **Beat-sync:** date chip lands on a strong cue; the key phrase's ember accent lands on a beat.
 10. **Episode tag:** small "THE JOURNEY · EP {N}" lockup at the end + brentbryson.ai end-card.
+11. **Render-safety:** after every exit fade that ends on a clip boundary, add a matching `tl.set(target, { autoAlpha: 0 }, boundaryTime)` hard kill — the check gate blocks the video without it.
 
 ## Voice
 
