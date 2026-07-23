@@ -56,6 +56,13 @@ Coming from Brent's other instance: 3 lead-magnet books (email harvest) — when
 5. When ElevenLabs key lands: wire voice clone, add VO to English lane
 6. Aug 4-ish: check Blotato analytics, bend plan to whichever rotation pulls follows
 
+## Latest decisions (2026-07-23, post-consolidation)
+
+- Brand visually VERIFIED via /browse screenshots: primitives gallery, brentbryson.ai, tigerclaw.io all match — no drift. Tiger mark PNGs grabbed from live site → primitives `assets/logo/` + machine template assets (`tigerclaw-mark.png`).
+- **Standing rule (Brent): anything reusable we make gets contributed back to the primitives repo** (additive, never change values).
+- **Cross-instance sync: `HANDOFF.md` in this repo is the relay** — other Fable instances pull, read SOTU + HANDOFF, append their delta, push. No human courier.
+- YouTube-system assets (clone clips, little videos) also live on **Higgsfield** (MCP: show_generations / show_medias) — check there before re-making anything.
+
 ## Standing laws (Brent's)
 
 - Draft-by-default; personal videos NEVER queue; no company names from his past industry on screen; age never the headline; v4 story told as winning-not-won ("the journey is alive"); one step at a time in conversation (one eye); no secrets in chat — file handoff only.
