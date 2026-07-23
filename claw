@@ -122,9 +122,14 @@ fi
 
 [ -f "$RUN/composition/index.html" ] || { echo "LOUD FAIL: no composition produced"; exit 1; }
 
-# ---- 2. GATE ----
+# ---- 2. GATE (with deterministic auto-fix, one retry) ----
 echo "== GATE: hyperframes check"
-( cd "$RUN/composition" && npx hyperframes check ) || { echo "LOUD FAIL: check failed — video blocked"; exit 1; }
+if ! ( cd "$RUN/composition" && npx hyperframes check ); then
+  echo "== GATE failed — attempting deterministic auto-fix (no AI cost)"
+  "$M/scripts/gate-autofix.sh" "$RUN/composition" || true
+  ( cd "$RUN/composition" && npx hyperframes check ) || { echo "LOUD FAIL: check failed after auto-fix — video blocked"; exit 1; }
+  echo "== GATE passed after auto-fix"
+fi
 
 # ---- 3. RENDER ----
 echo "== RENDER ($QUALITY)"
