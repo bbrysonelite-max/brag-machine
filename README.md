@@ -63,3 +63,16 @@ cd docker && docker compose -f postiz-compose.yml up -d
 # open http://localhost:4200, connect channels, create API key
 # machine.env: QUEUE_ADAPTER=postiz, POSTIZ_API_KEY=...
 ```
+
+## Chaining + CTA
+
+```bash
+# Chain past runs into one film (no brain, no render cost — pure ffmpeg)
+./claw --stitch 20260722-180410,20260722-181500 --channels x
+# Caption comes from the first run unless you pass one: ./claw "new caption" --stitch ...
+
+# Put a link on the video (end-card) + auto-append it to the caption
+./claw "hook: ..." --cta https://brentbryson.ai
+# Set DEFAULT_CTA in machine.env to do this on every run
+```
+Note: social platforms don't make in-video links clickable — the end-card shows the URL, the caption carries the clickable link.

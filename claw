@@ -12,6 +12,8 @@
 #   --channels x,tiktok,instagram,...    (default from machine.env)
 #   --at "2026-07-23T16:00:00Z"          schedule time (ISO, UTC)
 #   --template <name>                    skip the brain, use templates/<name>
+#   --stitch run1,run2,...               chain past runs into one film (no brain, no render cost)
+#   --cta <url>                          link shown on-screen + appended to caption (default DEFAULT_CTA)
 #   --via blotato|postiz|<any adapter>   pick the poster from the bullpen for this run
 #   --dry                                render only, do not queue
 #   --live                               skip draft mode (Postiz only)
@@ -22,13 +24,15 @@ M="$(cd "$(dirname "$0")" && pwd)"
 [ -f "$M/machine.env" ] && . "$M/machine.env"
 
 FORMAT=landscape; TONE=polished; CHANNELS="${DEFAULT_CHANNELS:-x}"
-AT=""; DRY=0; LIVE=0; TEMPLATE=""; QUALITY=high; PROMPT=""
+AT=""; DRY=0; LIVE=0; TEMPLATE=""; QUALITY=high; PROMPT=""; STITCH=""; CTA="${DEFAULT_CTA:-}"
 while [ $# -gt 0 ]; do case "$1" in
   --format)   FORMAT="$2"; shift 2;;
   --tone)     TONE="$2"; shift 2;;
   --channels) CHANNELS="$2"; shift 2;;
   --at)       AT="$2"; shift 2;;
   --template) TEMPLATE="$2"; shift 2;;
+  --stitch)   STITCH="$2"; shift 2;;
+  --cta)      CTA="$2"; shift 2;;
   --via)      QUEUE_ADAPTER="$2"; shift 2;;
   --dry)      DRY=1; shift;;
   --live)     LIVE=1; shift;;
@@ -48,11 +52,49 @@ RUN="$M/runs/$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$RUN"
 echo "== RUN: $RUN"
 
+# ---- 0. STITCH MODE (chain past runs, skip brain/gate/render) ----
+if [ -n "$STITCH" ]; then
+  command -v ffprobe >/dev/null || { echo "LOUD FAIL: ffprobe missing (comes with ffmpeg)"; exit 1; }
+  LIST="$RUN/concat.txt"; : > "$LIST"; DIMS=""
+  IFS=',' read -ra PIECES <<< "$STITCH"
+  [ "${#PIECES[@]}" -ge 2 ] || { echo "LOUD FAIL: --stitch needs at least 2 runs"; exit 1; }
+  for R in "${PIECES[@]}"; do
+    SRC="$M/runs/$R/out.mp4"
+    [ -s "$SRC" ] || { echo "LOUD FAIL: no video at runs/$R/out.mp4"; exit 1; }
+    D=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 "$SRC")
+    [ -z "$DIMS" ] && DIMS="$D"
+    [ "$D" = "$DIMS" ] || { echo "LOUD FAIL: runs/$R is ${D}, others are ${DIMS} — stitch needs one format"; exit 1; }
+    printf "file '%s'\n" "$SRC" >> "$LIST"
+  done
+  echo "== STITCH: ${#PIECES[@]} runs -> one film ($DIMS)"
+  ffmpeg -v error -y -f concat -safe 0 -i "$LIST" -c:v libx264 -pix_fmt yuv420p -r 30 \
+    -c:a aac -movflags +faststart "$RUN/out.mp4" || { echo "LOUD FAIL: ffmpeg stitch failed"; exit 1; }
+  test -s "$RUN/out.mp4" || { echo "LOUD FAIL: stitch produced no file"; exit 1; }
+  # Caption: prompt text if given, else first run's caption
+  if [ -n "$PROMPT" ]; then echo "$PROMPT" > "$RUN/caption.txt"
+  else cp "$M/runs/${PIECES[0]}/caption.txt" "$RUN/caption.txt" 2>/dev/null || { echo "LOUD FAIL: no caption — pass one as the prompt"; exit 1; }
+  fi
+  if [ -n "$CTA" ] && ! grep -q "$CTA" "$RUN/caption.txt"; then printf '\n%s\n' "$CTA" >> "$RUN/caption.txt"; fi
+  echo "== VIDEO: $RUN/out.mp4"
+  if [ "$DRY" -eq 1 ]; then
+    echo "== DRY RUN complete. Video at: $RUN/out.mp4"
+  else
+    MODE=draft; [ "$LIVE" -eq 1 ] && MODE=live
+    ADAPTER="$M/adapters/${QUEUE_ADAPTER:-blotato}.sh"
+    [ -x "$ADAPTER" ] || { echo "LOUD FAIL: adapter $ADAPTER missing/not executable"; exit 1; }
+    "$ADAPTER" "$RUN/out.mp4" "$RUN/caption.txt" "$CHANNELS" "$AT" "$MODE"
+  fi
+  echo "{\"ts\":\"$(date -u +%FT%TZ)\",\"run\":\"$(basename "$RUN")\",\"prompt\":\"stitch:$STITCH\",\"format\":\"$DIMS\",\"channels\":\"$CHANNELS\",\"mode\":\"$([ "$DRY" -eq 1 ] && echo dry || echo "${MODE:-dry}")\",\"video\":\"$RUN/out.mp4\"}" >> "$M/ledger.jsonl"
+  echo "== DONE. Ledger updated."
+  exit 0
+fi
+
 # ---- 1. COMPOSITION (template or brain) ----
 if [ -n "$TEMPLATE" ]; then
   [ -d "$M/templates/$TEMPLATE/composition" ] || { echo "LOUD FAIL: no template '$TEMPLATE'"; exit 1; }
   cp -r "$M/templates/$TEMPLATE/composition" "$RUN/composition"
   cp "$M/templates/$TEMPLATE/caption.txt" "$RUN/caption.txt" 2>/dev/null || echo "$PROMPT" > "$RUN/caption.txt"
+  if [ -n "$CTA" ] && ! grep -q "$CTA" "$RUN/caption.txt"; then printf '\n%s\n' "$CTA" >> "$RUN/caption.txt"; fi
 else
   [ -n "$PROMPT" ] || { echo "LOUD FAIL: no prompt and no --template"; exit 1; }
   command -v claude >/dev/null || { echo "LOUD FAIL: claude CLI not found (the brain)"; exit 1; }
@@ -68,6 +110,7 @@ $(cat "$M/style/HOUSE-STYLE.md")
 === THIS RUN ===
 FORMAT: $FORMAT (${W}x${H})
 TONE: $TONE
+$([ -n "$CTA" ] && echo "CTA: end the video on an end-card showing $CTA and use $CTA as the link in the caption (this overrides any default URL in the instructions)")
 OUTPUT: write $RUN/composition/index.html — runtime assets (gsap, fonts, music, sfx) are ALREADY at $RUN/composition/assets/, reference them relatively, do not copy or create assets
 ALSO WRITE: $RUN/caption.txt — the social caption for this video.
 
