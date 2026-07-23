@@ -55,7 +55,7 @@ for CH in "${CHS[@]}"; do
     instagram)  PLATFORM=instagram; TARGET='{"targetType":"instagram","mediaType":"reel"}';;
     tiktok)     PLATFORM=tiktok;   TARGET='{"targetType":"tiktok","privacyLevel":"PUBLIC_TO_EVERYONE","disabledComments":false,"disabledDuet":false,"disabledStitch":false,"isBrandedContent":false,"isYourBrand":false,"isAiGenerated":true}';;
     facebook)   PLATFORM=facebook; PAGE="${BLOTATO_FACEBOOK_PAGE_ID:-}"; TARGET="{\"targetType\":\"facebook\",\"pageId\":\"$PAGE\"}";;
-    youtube)    PLATFORM=youtube;  TARGET='{"targetType":"youtube","title":"Tiger Claw","privacyStatus":"public","shouldNotifySubscribers":true}';;
+    youtube)    PLATFORM=youtube;  TITLE=$(head -1 "$CAPTION_FILE" | cut -c1-95); TARGET=$(jq -n --arg t "$TITLE" '{targetType:"youtube",title:$t,privacyStatus:"public",shouldNotifySubscribers:true}');;
     linkedin)   PLATFORM=linkedin; TARGET='{"targetType":"linkedin"}';;
     *) echo "LOUD FAIL: unknown channel '$CH'"; exit 1;;
   esac
