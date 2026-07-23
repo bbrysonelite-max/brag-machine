@@ -17,7 +17,7 @@ The Brag Machine (`claw`) turns a prompt into a branded, beat-synced, gate-check
 | Research report | claude.ai artifact "Demand Report · AI & Direct Selling · July 2026" + raw files in `~/Documents/Last30Days/` |
 | Secrets | `~/Desktop/GitSync copy/` — kloop.env, BRENT_CREDENTIALS.md, blotato.env. NEVER echo values; keys can contain `/` and `=` (extract with `cut -d= -f2-`, never alnum-only regex) |
 | Vault (story source) | github bbrysonelite-max/vault-personal; richest seams: 03_The_Stream/Wispr_Flow + 04_The_Synthesizer/Atomic_Notes |
-| **Brand truth (LAW)** | github bbrysonelite-max/tigerclaw-primitives — local clone at `~/Desktop/The Brag-Machine/tigerclaw-primitives` (git pull before brand work). Wherever possible CHECK PRIMITIVES: any Tiger-brand render (HOUSE-STYLE, business-promo for Tiger, website/social brand assets) uses ITS tokens and logo files, never hand-approximated values. Applies to both systems (social + YouTube). |
+| **Brand truth (status: SPLIT — audit 2026-07-23)** | tigerclaw-primitives (local clone beside machine) was intended as brand truth but the audit found it holds NO real assets: placeholder logo (not the claw), Google-CDN fonts (Bebas/Space Grotesk — conflicts with machine's Inter), flat orange `#E8722A` vs machine's ember gradient. The claw Brent loves is the MACHINE's CSS mark. PENDING Brent's reconciliation call — recommended direction: machine look becomes canonical, primitives regenerated to match (export real claw SVG + self-hosted fonts + token file). Until then: machine styles are the video brand truth; borrow primitives only for motion recipes (glitch text, electric borders, social-card layouts). |
 
 ## Machine state (all working, verified 2026-07-23)
 
