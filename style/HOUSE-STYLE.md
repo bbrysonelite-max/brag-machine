@@ -1,17 +1,18 @@
-# Tiger Claw House Style — LOCKED
+# Tiger Claw House Style — LOCKED to tigerclaw-primitives (Brent's ruling 2026-07-23)
 
-Every video the machine produces obeys this. No exceptions without Brent.
+Every Tiger-brand video obeys the primitives repo (`~/Desktop/The Brag-Machine/tigerclaw-primitives`) — the same tokens that ship brentbryson.ai, tigerclaw.io, the Dashboard, and the Admin Dashboard. No exceptions without Brent. (Personal-series styles — journey/coaching/motivational — are a separate locked look and exempt.)
 
-## Brand
+## Brand (primitives tokens, verbatim)
 
 | Element | Value |
 |---|---|
-| Background | `#0A0E14` deep charcoal-navy, with subtle radial glows (`#101a26`, faint `rgba(255,107,26,0.07)`) |
-| Text | `#F5F7FA` primary · `#C7D2DE` secondary · `#8FA0B3` sub · `#6B7A8C` faint |
-| Accent | tiger orange gradient `#FFB36B → #FF6B1A → #E2510A` |
-| Logo | claw mark = 3 skewed rounded bars (skewX -16°, staggered heights, orange gradient, soft orange glow) |
-| Font | Inter (bundle locally — weights 400/600/800/900), tight tracking on display sizes |
-| Cards/UI | `#121A24` bg, `#22303E` border, radius 18–26px, deep shadow |
+| Background | `#0A0A0A` near-black (light mode `#f8f7f5` if ever needed) |
+| Surfaces/Cards | `#1a1a1a` bg, `rgba(255,255,255,0.08)` border, radius 18–26px |
+| Text | `#f5f5f5` primary · `rgba(255,255,255,0.6)` secondary |
+| Accent | Tiger Claw orange **flat `#E8722A`** — no gradients on Tiger-brand work |
+| Signal green | `#4ADE80` (deep `#22C55E`) — success/positive signals only |
+| Logo | wordmark lockup: "TIGER CLAW" in bold Space Grotesk with `#E8722A` accent, per the primitives gallery header. The 3-bar CSS claw is the PERSONAL-series mark only — not for Tiger-brand renders |
+| Fonts (bundled locally in assets/fonts/) | display: **Bebas Neue** (`bebas-neue-400.woff2`) · body/UI: **Space Grotesk** 400/700 (`space-grotesk-400/700.woff2`) · labels/mono: **IBM Plex Mono** 400/600 (`ibm-plex-mono-400/600.woff2`). Always declare @font-face from these local files — never CDN |
 
 ## Creative Laws (from /brag, adopted)
 
