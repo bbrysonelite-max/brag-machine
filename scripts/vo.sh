@@ -10,14 +10,22 @@ PROFILE="${5:-18836009-0527-4b9f-9837-3d58c2a0dc76}"  # "Brent Bryson" profile
 [ -s "$RUN/out.mp4" ] || { echo "LOUD FAIL: no out.mp4 in $RUN"; exit 1; }
 curl -s -m 5 "$VB/profiles" >/dev/null || { echo "LOUD FAIL: Voicebox API down — open -a Voicebox"; exit 1; }
 
+# wait for any in-flight generation to finish (server is effectively single-lane)
+for i in $(seq 1 60); do
+  BUSY=$(curl -s -m 8 "$VB/history?limit=5" | jq -r '[.items[] | select(.status=="generating" or .status=="loading_model")] | length' 2>/dev/null || echo 0)
+  [ "${BUSY:-0}" = "0" ] && break
+  sleep 5
+done
+
 echo "== VO: generating in Brent voice"
-GID=$(curl -s -X POST "$VB/generate" -H "Content-Type: application/json" \
-  -d "$(jq -n --arg t "$TEXT" --arg p "$PROFILE" '{text:$t, profile_id:$p, language:"en"}')" | jq -r '.id')
-[ -n "$GID" ] && [ "$GID" != "null" ] || { echo "LOUD FAIL: generate request failed"; exit 1; }
+RESP=$(curl -s -X POST "$VB/generate" -H "Content-Type: application/json" \
+  -d "$(jq -n --arg t "$TEXT" --arg p "$PROFILE" '{text:$t, profile_id:$p, language:"en"}')")
+GID=$(echo "$RESP" | jq -r 'if type=="object" then (.id // empty) else empty end')
+[ -n "$GID" ] || { echo "LOUD FAIL: generate request failed — raw response:"; echo "$RESP" | head -c 500; exit 1; }
 
 # poll history (status endpoint is SSE)
 for i in $(seq 1 120); do
-  ST=$(curl -s -m 8 "$VB/history?limit=10" | jq -r ".[] | select(.id==\"$GID\") | .status")
+  ST=$(curl -s -m 8 "$VB/history?limit=10" | jq -r ".items[] | select(.id==\"$GID\") | .status")
   case "$ST" in
     completed) break;;
     failed|error) echo "LOUD FAIL: VO generation $ST"; exit 1;;

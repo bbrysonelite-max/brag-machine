@@ -56,6 +56,13 @@ Coming from Brent's other instance: 3 lead-magnet books (email harvest) — when
 5. When ElevenLabs key lands: wire voice clone, add VO to English lane
 6. Aug 4-ish: check Blotato analytics, bend plan to whichever rotation pulls follows
 
+## Voice stack (RULED by Brent 2026-07-23: "best generated voice I have ever had")
+
+- **Voicebox** (jamiepine/voicebox, local app, API 127.0.0.1:17493) = THE English VO voice. Profile "Brent Bryson" id 18836009-0527-4b9f-9837-3d58c2a0dc76, cloned from 28s of FINISHED_v3 footage. `machine/scripts/vo.sh <run-dir> "<text>" [delay-ms]` = generate + duck-mix under any render. MCP registered (machine project). Gotchas: /history wraps in .items; /generate/{id}/status is SSE; single-lane server (vo.sh waits); sample max 30s + exact reference_text; librosa error = relaunch app.
+- HeyGen = on-camera avatars only (CLI-driven, `heygen video create`; two Brents + contrast law at YOUTUBE/identity/TWO-BRENTS-CONTRAST.md). ElevenLabs 1.5M credits parked for Thai-in-Brent's-voice.
+- **Gate auto-fix** in claw (`scripts/gate-autofix.sh`): heals missing hard-kills + mono-font errors deterministically, one retry, proven 5→0 on re-broken EP1.
+- Format ruling: AGENT LAWS ship with Brent VO; JOURNEY episodes stay text-films (style law).
+
 ## Latest decisions (2026-07-23, post-consolidation)
 
 - Brand visually VERIFIED via /browse screenshots: primitives gallery, brentbryson.ai, tigerclaw.io all match — no drift. Tiger mark PNGs grabbed from live site → primitives `assets/logo/` + machine template assets (`tigerclaw-mark.png`).

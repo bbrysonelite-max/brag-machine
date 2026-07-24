@@ -17,6 +17,11 @@ Brent Bryson runs a daily content system built on the **Brag Machine** (`machine
 - **Pending:** Brent's ElevenLabs key (→ voice clone VO, EN + Thai); lead-magnet books being built on ANOTHER instance (3 books, email harvest — when live, `--cta` points at capture page); affiliate links for promoted tools.
 - **Token law:** subagents for heavy reading/mining; stitch/template/in-place fixes over new brain runs.
 
+### 2026-07-23 PM (instance: Brent's Mac / terminal Fable)
+- **Voice solved**: Voicebox (local, free) cloned Brent from his own footage — his verdict: "best generated voice I have ever had." vo.sh narrates any render. Agent Laws now ship with his voice; Journey eps stay text-films. HeyGen = on-camera only; ElevenLabs credits parked for Thai.
+- **Content bank**: Weeks 1–2 fully scheduled EN+TH (through Aug 1). Week 3 (Laws 5–7 + EP4–5 + tile) approved, VO in progress, scheduling into Aug 3–9. Receipts correction: the million-words tile now matches Brent's real Flow screenshots (1,016,656 words / 197 days / "10 complete books"), banked in machine/receipts/.
+- **Machine upgrades**: gate auto-fix (self-heals check failures, no AI cost); heygen CLI grounded as the YouTube render path (no manual HeyGen Pro steps); Sunday YT script drafted at YOUTUBE/scripts/ awaiting Brent's pass; contrast law at YOUTUBE/identity/TWO-BRENTS-CONTRAST.md; production log at YOUTUBE/PRODUCTION-LOG.md.
+
 ### (append your delta above this line, newest first)
 
 ## For the browser-instance Fable specifically

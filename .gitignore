@@ -5,3 +5,4 @@ node_modules/
 brag.mp4
 ledger.jsonl
 .DS_Store
+.gstack/
