@@ -11,7 +11,7 @@
 | 6 | 07-23 | Female voice appeared mid-read (Chrissy v1) | Ellipses/pauses let the clone drift | No ellipses in VO text; continuous sentences; ears verify every VO | brag-voice skill | CLOSED |
 | 7 | 07-23 | "Uncle Brent" spoken at the end | I voiced a signature | Signatures are on-screen only, never voiced | brag-personal skill | CLOSED |
 | 8 | 07-23 | File "doesn't play" | Overwrote a file QuickTime had open; no faststart | Fresh filename every version + faststart + ffprobe verify before delivery | brag-personal skill, vo.sh habits | CLOSED |
-| 9 | 07-23 | Jeff Mac → Jeff **Mack**; Chrissy also misspelled | Rendered dictated names without confirming spelling | NAME-SPELLING LAW: confirm exact letters before any render | brag-personal skill | **OPEN — awaiting Chrissy's correct spelling** |
+| 9 | 07-23 | Jeff Mac → Jeff **Mack**; Chrissy also misspelled | Rendered dictated names without confirming spelling | NAME-SPELLING LAW: confirm exact letters before any render | brag-personal skill | CLOSED — her spelling is **Chrisie** (she replied herself, laughing); Chrisie + first-name-only re-renders delivered |
 
 ## Protocol
 1. Brent corrects → ticket appended here same session (date, correction, root cause).
