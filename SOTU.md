@@ -76,3 +76,6 @@ Wed = practical lane (tools/laws) · Sun = story lane (Journey arc). Every longf
 ## Standing laws (Brent's)
 
 - Draft-by-default; personal videos NEVER queue; no company names from his past industry on screen; age never the headline; v4 story told as winning-not-won ("the journey is alive"); one step at a time in conversation (one eye); no secrets in chat — file handoff only.
+
+## Naming (Brent, 2026-07-23)
+Public-facing name: **THE MACHINE** (matches his evergreen lore: "just the machine, doing real work"). Internal name stays Brag Machine / brag-machine repo / claw / brag-* skills — no renames internally.
