@@ -21,6 +21,9 @@ Sources: `~/Desktop/POSTING-PLAN-30-DAYS.md` (the calendar) · `~/Desktop/JOURNE
 10. **Ledger:** append every scheduled batch to `machine/ledger.jsonl`. Log used ideas to `machine/cadence/cadence-state.json` (no-repeat law).
 11. **Update SOTU** if state changed; append the delta to `machine/HANDOFF.md` for other instances.
 
+## Type-size law (mobile legibility — Brent 2026-07-23)
+Every style file carries minimum type sizes; the key statement is >=64px on the 1080 canvas, nothing load-bearing below 54px. Verify on spot-checks — small text that looked fine in QuickTime is unreadable in a feed.
+
 ## Costs
 
 Brain runs = credits (one per new video). VO, Thai, stitches, re-renders, fixes, scheduling = free. When credits are tight: template/stitch/re-skin lanes only.

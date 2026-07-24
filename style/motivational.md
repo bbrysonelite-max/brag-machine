@@ -36,3 +36,13 @@ Big-type quote films. One idea per video, said like Brent would say it — earne
 **Series theme (locked by Brent 2026-07-23): `assets/music/journey-theme.mp3`** — the rock-stomp Brent sound, shared with the journey style. Never substitute the happy-beats stock track in this style.
 Beat grid ≈ every 0.50s from 3.02s. Strong cues: 3.02, 16.02–18.52, 20.02.
 Music volume 0.45 (quieter than promo work), fade in 1s, fade out 1.5s. SFX: at most one soft click on the accent moment.
+
+## TYPE-SIZE LAW (Brent, 2026-07-23 — verified on social: small text is unreadable on phones, big text is great)
+
+Minimums on the 1080-wide vertical canvas (scale proportionally for other formats):
+- Hook/display lines: **≥100px**, weight 800-900
+- The key statement (quote, law, message line): **≥64px** — this is the line the viewer came for; when in doubt, BIGGER
+- Support/secondary lines and chips: **≥54px**
+- Narration/context lines: **≥70px**
+- Tiny "authenticity detail" text (file receipts, date-chip captions) may stay small — it is texture, never load-bearing reading
+Nothing the viewer MUST read may render below 54px. Bigger beats prettier.

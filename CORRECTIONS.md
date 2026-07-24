@@ -14,6 +14,8 @@
 | 9 | 07-23 | Jeff Mac → Jeff **Mack**; Chrissy also misspelled | Rendered dictated names without confirming spelling | NAME-SPELLING LAW: confirm exact letters before any render | brag-personal skill | CLOSED — her spelling is **Chrisie** (she replied herself, laughing); Chrisie + first-name-only re-renders delivered |
 | 10 | 07-23 | "You're doing work that doesn't need to be done. We've already done this." | I treated new rules as orders to REDO shipped work (re-rendered Jeff + started re-rendering Chrisie unasked) | Rules are FORWARD-looking. Shipped/sent work is done unless Brent explicitly asks for a redo. A correction to a skill never triggers rework by itself | this ledger + brag-personal skill | CLOSED |
 
+| 11 | 07-23 | Small text unreadable on social; big text great | Styles had no minimum type sizes; QuickTime preview hides feed-scale problems | TYPE-SIZE LAW: key statement ≥64px, nothing load-bearing <54px on 1080 canvas | all 6 style files + brag-one + brag-week | CLOSED |
+
 ## Protocol
 1. Brent corrects → ticket appended here same session (date, correction, root cause).
 2. The correction is promoted to a rule in the skill/style/doc where it can't be missed next time.

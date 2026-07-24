@@ -40,3 +40,13 @@ Logbook voice. Short declarative narration ("Build two. An AI split the code in 
 
 **Series theme (locked by Brent 2026-07-23): `assets/music/journey-theme.mp3`** — gritty blues-rock stomp, 51s. This IS the Journey's sonic brand; never substitute the happy-beats stock track in this style.
 Play it at 0.35 baseline and let it swell under the final card (to 0.5). Fade in 1.0s, fade out 2s. Lock the date chip and the ember accent phrase to the stomp's downbeats. SFX: a single soft keyboard/typewriter tick under quote assembly, sparingly.
+
+## TYPE-SIZE LAW (Brent, 2026-07-23 — verified on social: small text is unreadable on phones, big text is great)
+
+Minimums on the 1080-wide vertical canvas (scale proportionally for other formats):
+- Hook/display lines: **≥100px**, weight 800-900
+- The key statement (quote, law, message line): **≥64px** — this is the line the viewer came for; when in doubt, BIGGER
+- Support/secondary lines and chips: **≥54px**
+- Narration/context lines: **≥70px**
+- Tiny "authenticity detail" text (file receipts, date-chip captions) may stay small — it is texture, never load-bearing reading
+Nothing the viewer MUST read may render below 54px. Bigger beats prettier.

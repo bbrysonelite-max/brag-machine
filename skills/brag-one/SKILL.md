@@ -25,6 +25,9 @@ Copy the run's composition to a new run dir, then: add `@font-face {font-family:
 - **Brent's voice = local Voicebox clone** (his ruling: the best he's had). One command: `./scripts/vo.sh <run-dir> "<text>" [delay-ms]` → `out-vo.mp4`. AGENT LAWS ship voiced; Journey eps stay text-films.
 - Fallback stand-in only if Voicebox is down: `npx hyperframes tts --voice am_michael` + the ffmpeg duck-mix (same filter vo.sh uses).
 
+## Type-size law (mobile legibility — Brent 2026-07-23)
+Every style file carries minimum type sizes; the key statement is >=64px on the 1080 canvas, nothing load-bearing below 54px. Verify on spot-checks — small text that looked fine in QuickTime is unreadable in a feed.
+
 ## Laws
 
 Draft-by-default (+6h) unless `--at`; personal videos NEVER queue; captions in Brent's voice (cadence bank: `machine/voice/voice.md`, compliance: `machine/voice/never-say.md`); no company names from his past industry; log every idea used to `machine/cadence/cadence-state.json` usedIdeas (no-repeat law); update `machine/SOTU.md` if state changed.

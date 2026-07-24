@@ -47,3 +47,13 @@ Closer's confidence. Blunt truths ("Prospects don't ghost you. You ghost them.")
 Bundled track: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (120 BPM).
 Beat grid ≈ every 0.50s from 3.02s. Strong cues: 3.02 (0.86), 16.02–18.52 & 20.02 (1.00).
 Music volume 0.55, fade in 0.8s, fade out ~1s under outro. SFX sparing: clicks for completions, switches for chips, one rollover under the logo. Volumes ≤ 0.5.
+
+## TYPE-SIZE LAW (Brent, 2026-07-23 — verified on social: small text is unreadable on phones, big text is great)
+
+Minimums on the 1080-wide vertical canvas (scale proportionally for other formats):
+- Hook/display lines: **≥100px**, weight 800-900
+- The key statement (quote, law, message line): **≥64px** — this is the line the viewer came for; when in doubt, BIGGER
+- Support/secondary lines and chips: **≥54px**
+- Narration/context lines: **≥70px**
+- Tiny "authenticity detail" text (file receipts, date-chip captions) may stay small — it is texture, never load-bearing reading
+Nothing the viewer MUST read may render below 54px. Bigger beats prettier.

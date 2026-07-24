@@ -35,3 +35,13 @@ Warm, plain, specific. Specific beats grand: "you always call your grandma back"
 
 Bundled track: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (120 BPM).
 Music volume 0.4, fade in 1.5s, fade out 2s. No SFX — silence between notes does the work.
+
+## TYPE-SIZE LAW (Brent, 2026-07-23 — verified on social: small text is unreadable on phones, big text is great)
+
+Minimums on the 1080-wide vertical canvas (scale proportionally for other formats):
+- Hook/display lines: **≥100px**, weight 800-900
+- The key statement (quote, law, message line): **≥64px** — this is the line the viewer came for; when in doubt, BIGGER
+- Support/secondary lines and chips: **≥54px**
+- Narration/context lines: **≥70px**
+- Tiny "authenticity detail" text (file receipts, date-chip captions) may stay small — it is texture, never load-bearing reading
+Nothing the viewer MUST read may render below 54px. Bigger beats prettier.
