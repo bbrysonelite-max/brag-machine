@@ -37,6 +37,12 @@ done
 curl -s "$VB/audio/$GID" -o "$RUN/vo.wav"
 [ -s "$RUN/vo.wav" ] || { echo "LOUD FAIL: no audio bytes"; exit 1; }
 
+# timing guard (Brent's law 2026-07-23): narration must END >=1.5s before the video does.
+VDUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$RUN/out.mp4")
+ADUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$RUN/vo.wav")
+FITS=$(python3 -c "print(1 if $ADUR + $DELAY/1000.0 + 1.5 <= $VDUR else 0)")
+[ "$FITS" = "1" ] || { echo "LOUD FAIL: narration too long — voice ${ADUR}s + delay $((DELAY))ms overruns ${VDUR}s video. Shorten the text (budget ≈ $(python3 -c "print(int(($VDUR - $DELAY/1000.0 - 1.5) * 2.3))") words) and rerun."; exit 1; }
+
 echo "== VO: mixing under film (music ducked)"
 ffmpeg -v error -y -i "$RUN/out.mp4" -i "$RUN/vo.wav" -filter_complex \
   "[1:a]adelay=${DELAY}|${DELAY},volume=1.5[vo];[0:a]volume=0.35[bg];[bg][vo]amix=inputs=2:duration=first:normalize=0[a]" \

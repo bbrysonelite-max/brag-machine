@@ -34,6 +34,13 @@ curl -s -X POST http://127.0.0.1:17493/generate -H "Content-Type: application/js
 - First generation after app start loads Qwen 1.7B — slow on this Intel Mac; later ones are fine. Batch VO accordingly.
 - Voicebox MCP is registered for the machine project (`claude mcp` → voicebox).
 
+## Timing law (Brent, 2026-07-23 — Law #5 v1 was a "timing mess")
+
+- **The voice lives inside the visual arc.** Narration must END at least 1.5s before the video ends (vo.sh now enforces this and prints the word budget on failure).
+- **Word budget:** (video_seconds − delay_seconds − 1.5) × 2.3 words. A 22s video with a 2.5s start ≈ 40 words MAX — the law + one punch, never the whole caption.
+- **Start late:** delay past the hook (2000–2500ms for coaching style), never 800ms.
+- Voice v1 of anything gets Brent's ears before the format ships.
+
 ## Format rulings (Brent)
 
 - **AGENT LAWS ship with his voice.** JOURNEY episodes stay text-films (style law) — narrated versions are a YouTube/compilation flavor, not the Shorts default.
