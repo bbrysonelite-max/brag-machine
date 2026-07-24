@@ -9,7 +9,7 @@ Proven prototypes: Becca (positive-post style) · Chrissy (personalized THE MACH
 
 ## Brent's order format (parse exactly)
 
-1. **WHO** — recipient name and relationship. **NAME-SPELLING LAW (Brent, 2026-07-23): never render a name without confirming the exact spelling first** — dictation mangles names (Mac/Mack, Chrissy). One quick question before the build: "spell the name for me?" Applies to on-screen text; the voice only says the spoken form.
+1. **WHO** — recipient FIRST NAME only (Brent's law 2026-07-23: personal videos use first names everywhere — screen and voice; warmer, and kills the surname-spelling risk). Relationship for context. **NAME-SPELLING LAW (Brent, 2026-07-23): never render a name without confirming the exact spelling first** — dictation mangles names (Mac/Mack, Chrissy). One quick question before the build: "spell the name for me?" Applies to on-screen text; the voice only says the spoken form.
 2. **QUOTED MESSAGE** — text in quotes is spoken VERBATIM. Nothing outside quotes is ever voiced. If unclear what's quote vs context, ask ONE question before generating.
 3. **SIGNATURE** — on-screen ONLY (e.g. "— Uncle Brent"). The voice NEVER reads the signature (law, 2026-07-23: "that was meant to be a signature").
 4. Optional **VALUE BEAT** — a quick tip/thought to include as its own scene.
