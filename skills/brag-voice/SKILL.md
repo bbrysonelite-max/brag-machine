@@ -31,6 +31,7 @@ curl -s -X POST http://127.0.0.1:17493/generate -H "Content-Type: application/js
 - Server is single-lane: wait for no `generating`/`loading_model` items before POSTing (vo.sh does this).
 - "librosa stub" error = stale server bundle → quit + relaunch the app.
 - New voice samples: max 30s audio + exact `reference_text` transcript (transcribe with `npx hyperframes transcribe`; its JSON is an ARRAY of {start,end,text}).
+- **VOICE DRIFT (2026-07-23, Chrissy video):** ellipses/long pauses in the text can make the clone DRIFT to a different voice (even female) mid-read. Write continuous natural sentences — no "...", no stage pauses. If drift happens anyway, regenerate (seed varies). Human ears verify every personal/shipping VO.
 - First generation after app start loads Qwen 1.7B — slow on this Intel Mac; later ones are fine. Batch VO accordingly.
 - Voicebox MCP is registered for the machine project (`claude mcp` → voicebox).
 
