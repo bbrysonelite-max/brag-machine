@@ -25,6 +25,8 @@ Proven prototypes: Becca (positive-post style) · Chrissy (personalized THE MACH
 
 ## Laws
 
+- **Rules are forward-looking.** When Brent amends a rule, apply it to the NEXT video. Never redo a sent/approved video unless he explicitly asks — redos are the expensive part (ticket #10).
+
 - NEVER queue personal videos to any channel. They are gifts Brent sends himself.
 - Voice reads only quoted words + intro. Signature on screen only.
 - Iterate free: text swaps + re-render cost nothing; only his words are sacred.

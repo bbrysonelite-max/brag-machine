@@ -12,6 +12,7 @@
 | 7 | 07-23 | "Uncle Brent" spoken at the end | I voiced a signature | Signatures are on-screen only, never voiced | brag-personal skill | CLOSED |
 | 8 | 07-23 | File "doesn't play" | Overwrote a file QuickTime had open; no faststart | Fresh filename every version + faststart + ffprobe verify before delivery | brag-personal skill, vo.sh habits | CLOSED |
 | 9 | 07-23 | Jeff Mac → Jeff **Mack**; Chrissy also misspelled | Rendered dictated names without confirming spelling | NAME-SPELLING LAW: confirm exact letters before any render | brag-personal skill | CLOSED — her spelling is **Chrisie** (she replied herself, laughing); Chrisie + first-name-only re-renders delivered |
+| 10 | 07-23 | "You're doing work that doesn't need to be done. We've already done this." | I treated new rules as orders to REDO shipped work (re-rendered Jeff + started re-rendering Chrisie unasked) | Rules are FORWARD-looking. Shipped/sent work is done unless Brent explicitly asks for a redo. A correction to a skill never triggers rework by itself | this ledger + brag-personal skill | CLOSED |
 
 ## Protocol
 1. Brent corrects → ticket appended here same session (date, correction, root cause).
