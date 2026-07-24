@@ -47,6 +47,9 @@ Two systems only, per Brent: **SOCIAL = this machine** · **YOUTUBE = Two Brents
 Coming from Brent's other instance: 3 lead-magnet books (email harvest) — when live, `--cta` points at the capture page; check affiliate programs (Blotato/HeyGen/ElevenLabs) for promoted tools.
 **Brand note:** Brent LOVES the claw logo as rendered in Agent Law #1 (run 20260723-101531) — keep that treatment.
 
+## YouTube cadence (Brent's call 2026-07-23): TWO longform/week
+Wed = practical lane (tools/laws) · Sun = story lane (Journey arc). Every longform → `heygen ai-clipping` → captioned Shorts top up the daily queue free. Scripts awaiting Brent's pass: 2026-07-26-i-built-it-four-times.md + 2026-07-29-the-seven-agent-laws.md (YOUTUBE/scripts/). Weekly rhythm table lives in POSTING-PLAN-30-DAYS.md — Brent's time ≈ 3 hrs/wk (Mon review, Tue scripts, Fri retro line).
+
 ## Immediate next actions
 
 1. ~~Agent Law #1~~ QUEUED (approved "absolutely perfect"): Fri Jul 24 16:00Z to x,instagram,tiktok,facebook,youtube, with journey theme; music law extended — the stomp now covers journey + coaching + motivational styles
